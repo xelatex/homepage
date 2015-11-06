@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Buzz and Tosh
-subtitle: Arthur's Blog
-description: Arthur Chunqi Li's Blog
+#title: Buzz and Tosh
+title: "Arthur Chunqi Li's Blog"
+#description: Arthur Chunqi Li's Blog
 author: Arthur Chunqi Li
-language:
+language: en
 timezone:
 
 # URL
@@ -63,16 +63,20 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type: rsync
-  host: chunqi.li
-  user: root
-  root: /var/www/html/
-  port: 22
-  delete: true
-  verbose: true
-  ignore_errors: false
+#  type: rsync
+#  host: chunqi.li
+#  user: root
+#  root: /var/www/html/
+#  port: 22
+#  delete: true
+#  verbose: true
+#  ignore_errors: false
+
+  type: git
+  repository: https://github.com/xelatex/xelatex.github.io.git
+  branch: master
