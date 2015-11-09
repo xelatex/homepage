@@ -1,25 +1,25 @@
-title: "Calico: A solution of multi-host network for docker"
+title: "Calico: A Solution of Multi-host Network For Docker"
 date: 2015-11-06 14:06:56
 tags:
   - Docker
   - Calico
   - Multi-host Network
 categories:
-  - Docker
+  - Docker Network
 ---
 
 [Calico](https://github.com/projectcalico/calico) is a pure 3-layer protocol to support multi-host network communication for OpenStacks VMs and Docker containers. Calico does not use overlay network such as [falnnel](https://github.com/coreos/flannel) and [libnetwork overlay driver](https://github.com/docker/libnetwork/blob/master/docs/overlay.md), it is a pure Layer 3 approach with a vRouter implementation instead of a vSwitcher. Each vRouter propagates workload reachability information (routes) to the rest of the data center using BGP protocol.
 
 This post focus on how to setup a multi-host networking for Docker containers with [calico-docker](https://github.com/projectcalico/calico-docker) and some advanced features.
 
-## Environment
-### Environment Prerequisite
+# Environment
+## Environment Prerequisite
 * Two linux nodes (node1 and node2) with Ubuntu Linux distribution, either VM or physical machine is OK.
 * Install docker on both nodes.
 * Etcd cluster.
 
 
-### Configuration & Download
+## Configuration & Download
 Setup two linux nodes with IP 192.168.236.130/131 and connect them physically or virtually, confirm that they can ping each other succesfully. Setup docker bridge (default is docker0) on two nodes. Let's set two docker bridges with different network. Netowrk configuration details are as follows:
 
 Node1
@@ -58,7 +58,7 @@ wget https://github.com/projectcalico/calico-docker/releases/download/v0.10.0/ca
 {% endcodeblock %}
 
 
-## Start Calico Services
+# Start Calico Services
 Calico services in Docker environment are running as a Docker container using host network configuration. All containers configured with Calico services with use calico-node to communicate with each other and Internet.
 
 Run the following commands on node1/2 to start calico-node
@@ -80,9 +80,9 @@ calicoctl pool add 192.168.100.0/24 --ipip --nat-outgoing
 {% endcodeblock %}
 
 
-## Container Networking Configuration
+# Container Networking Configuration
 
-### Start Containers
+## Start Containers
 Firstly run a few containers on each host.
 
 On node1:
@@ -97,7 +97,7 @@ docker run --net=none --name worker-3 -tid ubuntu
 {% endcodeblock %}
 
 
-### Configure Calico Networking
+## Configure Calico Networking
 Now that all the containers are running without any network devices. Use Calico to assign network devices to these containers. Notice that IPs assigned to containers should be in the range of IP pools.
 
 On node1:
@@ -135,7 +135,7 @@ calicoctl container worker-3 profile append PROF_1
 Until now all configurations are done and we will test network connections of these containers afterwards.
 
 
-## Testing
+# Testing
 
 Now check the connectivities of each containers. At this point every containers should have access to Internet, try and ping google.com:
 {% codeblock lang:bash Check Internet access %}
@@ -162,9 +162,9 @@ docker exec worker-2 ping -c 4 192.168.100.3
 {% endcodeblock %}
 
 
-## Performance Tests
+# Performance Tests
 
-### Simple Test
+## Simple Test
 I perform a simple performance test using `iperf` to evaluate the network between two Calico containers. Run `iperf -s` on worker-1 and `iperf -c 192.168.100.1` on worker-3. We can get the result:
 
 	root@39fdb1701da4:~# ./iperf -c 192.168.101.2
@@ -189,7 +189,7 @@ Then run the same test on native host (node1 and node2):
 
 From the result we can see there's a great gap between Calico network and native network. But according to the official documents and evaluations, calico network should be similar to the native network. **WHY???**
 
-### Dive Deeper
+## Dive Deeper
 
 To find out the reason of slow network, firstly I test the network performance between workker-1 and worker-2, which are in the same host. The result is as follows:
 
@@ -231,7 +231,7 @@ Then test networking between worker-1 and worker-3 again:
 Hurray!!! That's the native speed!
 
 
-## References
+# References
 [1] Project Calico: [https://github.com/projectcalico/calico](https://github.com/projectcalico/calico)
 [2] Calico Docker: [https://github.com/projectcalico/calico-docker](https://github.com/projectcalico/calico-docker)
 [3] Demenstration on calico-docker: [https://github.com/projectcalico/calico-docker](https://github.com/projectcalico/calico-docker)
