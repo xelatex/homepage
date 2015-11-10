@@ -79,8 +79,6 @@ deploy:
 #  ignore_errors: false
 
   type: git
-  repository: https://github.com/xelatex/xelatex.github.io.git
-  branch: master
-  type: git
-  repository: https://gitcafe.com/xelatex/xelatex.git
-  branch: gitcafe-pages
+  repo:
+    github: https://github.com/xelatex/xelatex.github.io.git,master
+    gitcafe: https://gitcafe.com/xelatex/xelatex.git,gitcafe-pages
