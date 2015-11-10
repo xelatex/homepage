@@ -81,3 +81,6 @@ deploy:
   type: git
   repository: https://github.com/xelatex/xelatex.github.io.git
   branch: master
+  type: git
+  repository: https://gitcafe.com/xelatex/xelatex.git
+  branch: gitcafe-pages
