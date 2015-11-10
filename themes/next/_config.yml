@@ -78,9 +78,9 @@ sidebar: post
 
 
 # Social links
-social:
-  GitHub: https://github.com/xelatex/
-  #Others:
+#social:
+#  GitHub: https://github.com/xelatex/
+#  #Others:
 
 # Social Icons
 social_icons:
@@ -98,6 +98,10 @@ avatar: /images/avatar_s.png
 # Social links
 social:
   GitHub: https://github.com/xelatex/
+  LinkedIn: linkedin.chunqi.li
+  Facebook: http://facebook.chunqi.li/
+  Email: mailto:chunqi.li.pku@gmail.com
+  Blog: http://blog.chunqi.li
   #Others:
 
 
@@ -163,7 +167,7 @@ mathjax:
 #swiftype_key:
 
 # Baidu Analytics ID
-#baidu_analytics:
+baidu_analytics: 728e89dab529137c33053dbb13c72e60
 
 # Duoshuo ShortName
 #duoshuo_shortname: xelatex
@@ -172,7 +176,7 @@ mathjax:
 disqus_shortname: xelatex
 
 # Share
-#jiathis:
+#jiathis: yzt356
 
 # Share
 #duoshuo_share: true
@@ -183,7 +187,7 @@ disqus_shortname: xelatex
 
 
 # Google Analytics
-#google_analytics:
+google_analytics: UA-69908464-1
 
 
 # Make duoshuo show UA
