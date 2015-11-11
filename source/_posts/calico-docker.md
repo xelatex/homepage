@@ -5,7 +5,7 @@ tags:
   - Calico
   - Multi-host Network
 categories:
-  - Docker Network
+  - Docker Multi-host Network
 ---
 
 [Calico](https://github.com/projectcalico/calico) is a pure 3-layer protocol to support multi-host network communication for OpenStacks VMs and Docker containers. Calico does not use overlay network such as [falnnel](https://github.com/coreos/flannel) and [libnetwork overlay driver](https://github.com/docker/libnetwork/blob/master/docs/overlay.md), it is a pure Layer 3 approach with a vRouter implementation instead of a vSwitcher. Each vRouter propagates workload reachability information (routes) to the rest of the data center using BGP protocol.

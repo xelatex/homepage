@@ -1,11 +1,11 @@
-title: "Docker Multi-host Overlay Networking with Etcd"
+title: "Docker Multi-host Overlay Networking in Docker Engine v1.9"
 date: 2015-11-09 14:27:55
 tags:
 	- Docker
 	- Multi-host Network
 	- VXLAN
 categories:
-	- Docker Network
+	- Docker Multi-host Network
 ---
 
 [Docker](http://docker.io/) has released its newest version v1.9 ([see details](https://blog.docker.com/2015/11/docker-1-9-production-ready-swarm-multi-host-networking/)) on November 3, 2015. This big release put Swarm and multi-host networking into production-ready status. This blog illustrates the configuration and a few evaluations of Docker multi-host overlay networking.
