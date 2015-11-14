@@ -13,7 +13,7 @@ categories:
 
 # Multi-host Networking
 
-[Multi-host Networking was announced as part of experimental release in June, 2015](https://blog.docker.com/2015/06/networking-receives-an-upgrade/), and turns to stable release of Docker Engine this month. There are already several Multi-host networking solutions for docker, such as [Calico](/2015/11/06/calico-docker/) and [Flannel](https://coreos.com/blog/introducing-rudder/). Docker multi-host networking uses VXLAN-based solution with the help of `libnetwork` and `libkv` library. So the `overlay` network requires a valid key-value store service to exchange informations between different docker engines. Docker implements a built-in [VXLAN-based overlay network driver](https://datatracker.ietf.org/doc/rfc7348/) in `libnetwork` library to support a wide range virtual network between multiple hosts.
+[Multi-host Networking was announced as part of experimental release in June, 2015](https://blog.docker.com/2015/06/networking-receives-an-upgrade/), and turns to stable release of Docker Engine this month. There are already several Multi-host networking solutions for docker, such as [Calico](/2015/09/06/calico-docker/) and [Flannel](/2015/10/10/Flannel-for-Docker-Overlay-Network/). Docker multi-host networking uses VXLAN-based solution with the help of `libnetwork` and `libkv` library. So the `overlay` network requires a valid key-value store service to exchange informations between different docker engines. Docker implements a built-in [VXLAN-based overlay network driver](https://datatracker.ietf.org/doc/rfc7348/) in `libnetwork` library to support a wide range virtual network between multiple hosts.
 
 
 # Prerequisite
