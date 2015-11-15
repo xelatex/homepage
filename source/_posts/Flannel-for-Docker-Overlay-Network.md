@@ -146,8 +146,6 @@ Then dockers on different host:
 	[ ID] Interval       Transfer     Bandwidth
 	[  3]  0.0-10.0 sec   418 MBytes   351 Mbits/sec
 
-**The performace is so bad compared with native!!!!!** I can't figure out why the performance degrades too much with Flannel. Since Calico and Docker Multi-host Network can achieve more than 80% performance compared with native, Flannel does a aweful job apparently. If anyone knows why, please email me or comments under this blog.
-
 The performance of Dockers on the same host is pretty good.
 
 	root@93c451432761:~# iperf -c 10.15.240.3
@@ -159,6 +157,39 @@ The performance of Dockers on the same host is pretty good.
 	[ ID] Interval       Transfer     Bandwidth
 	[  3]  0.0-10.0 sec  39.2 GBytes  33.7 Gbits/sec
 
+~~**The performace is so bad compared with native!!!!!** I can't figure out why the performance degrades too much with Flannel. Since Calico and Docker Multi-host Network can achieve more than 80% performance compared with native, Flannel does a aweful job apparently. If anyone knows why, please email me or comments under this blog.~~
+
+After read through the configuration documents of Flannel, I found that flannel support two backends: UDP backend and VxLAN backend. Try VxLAN backend and the speed is much more fast and close to native performance.
+
+
+# UDP and VxLAN backends
+
+There are two different backends supported by Flannel. The previous configuration on this blog uses UDP backend, which is a pretty slow solution because all the packets are encrypted in userspace. VxLAN backend uses Linux Kernel VxLAN support as well as some hardware features to achieve a much more faster network.
+
+It's easy to use VxLAN backend. When configuring Etcd, just define the `backend` block with `vxlan`.
+
+{% codeblock lang:bash Config Etcd %}
+./etcdctl set /coreos.com/network/config 	\
+	'{"Network": "10.0.0.0/8",				\
+	"SubnetLen": 20,						\
+	"SubnetMin": "10.10.0.0",				\
+	"SubnetMax": "10.99.0.0",				\
+	"Backend": {							\
+		"Type": "vxlan"}} '
+{% endcodeblock %}
+
+With VxLAN backend, the iperf result of two containers on different hosts are as follows:
+
+	root@93c451432761:~# iperf -c 10.15.240.3
+	------------------------------------------------------------
+	Client connecting to 10.15.240.3, TCP port 5001
+	TCP window size: 85.0 KByte (default)
+	------------------------------------------------------------
+	[  3] local 10.15.240.2 port 38099 connected with 10.15.240.3 port 5001
+	[ ID] Interval       Transfer     Bandwidth
+	[  3]  0.0-10.0 sec  1.80 GBytes  1.56 Gbits/sec
+
+This is an acceptable result with about 80% performance compared with native network.
 
 # References
 
