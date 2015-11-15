@@ -1,9 +1,11 @@
-title: "Docker Multi-host Overlay Networking in Docker Engine v1.9"
+title: "Docker Multi-host Overlay Networking with Etcd"
 date: 2015-11-09 14:27:55
 tags:
 	- Docker
 	- Multi-host Network
 	- VXLAN
+  - Overlay Network
+  - Etcd
 categories:
 	- Docker Multi-host Network
 ---
