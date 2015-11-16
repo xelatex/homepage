@@ -25,7 +25,7 @@ This post provides a battlefiled for these 4 Docker multi-host network solutions
 
 # Docker Multi-host Networking Introduction
 
-Docker kicked out with a simple single-host networking from the very beginning. Unfortunately, this prevents Docker clusters from scale out to multiple hosts. A number of projects put their focus on this problem such as Calico, Flannel and Weave, and also since Nov. 2015, Docker support the Multi-host Overlay Networking itself.
+Docker kicked off with a simple single-host networking from the very beginning. Unfortunately, this prevents Docker clusters from scale out to multiple hosts. A number of projects put their focus on this problem such as Calico, Flannel and Weave, and also since Nov. 2015, Docker support the Multi-host Overlay Networking itself.
 
 What these projects have in common is trying to control the container's networking configurations, thus to capture and inject network packets. Consequently, every containers located on different hosts can get IPs in the same subnet and communicate with each other as if they are connected to the same L2 switch. In this way, containers could spread out on multiple hosts, even on multiple data centers.
 
@@ -54,7 +54,7 @@ Now let's see more details of these aspects on Calico, Flannel, Weave and Docker
 
 Multi-host networking means aggregating containers on different hosts to a same virtual network, and also these networking providers (Calico, etc.) are organized as a clustering network, too. The cluster organizations are called network model in this post. Technically, these four solutions uses different network model to organize their own network topology.
 
-**Calico** implements a pure Layer 3 approach to achieve a simpler, higher scaling, better performance and more efficient multi-host networking. So Calico can not be treated as an `overlay network`. The pure Layer 3 approach avoids the packet encapsulation associated with the Layer 2 solution which simplifies diagnostics, reduces transport overhead and improves performance. Calico also implements BGP protocl for routing combined with a pure IP network, thus allows Internetl scaling for virtual networks.
+**Calico** implements a pure Layer 3 approach to achieve a simpler, higher scaling, better performance and more efficient multi-host networking. So Calico can not be treated as an `overlay network`. The pure Layer 3 approach avoids the packet encapsulation associated with the Layer 2 solution which simplifies diagnostics, reduces transport overhead and improves performance. Calico also implements BGP protocl for routing combined with a pure IP network, thus allows Internet scaling for virtual networks.
 
 **Flannel** has two different network model to choose. One is called UDP backend, which is a simple IP-over-IP solutions which uses a TUN device to encapsulate every IP fragment in a UDP packet, thus forming an overlay network; the other is a VxLAN backend, which is same as Docker Overlay Network. I have run a simple test for these two models, VxLAN is much more faster than UDP backend. The reason, I suggest, is that VxLAN is well supported by Linux Kernel, while UDP backend implements a pure software-layer encapsulation. Flannel requires a Etcd cluster to store the network configuration, allocate subnets and auxiliary data (such as host's IP). And the packet routing also requires the cooperation of Etcd cluster. Besides, Flannel runs a seperate process `flanneld` on host environment to support packet switching. Apart from Docker, flannel can also used for traditional VMs.
 
