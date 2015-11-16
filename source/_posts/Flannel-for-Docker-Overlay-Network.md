@@ -27,7 +27,7 @@ Since Flannel depends on Etcd, you need to download, run and config Etcd before 
 curl -L  https://github.com/coreos/etcd/releases/download/v2.2.1/etcd-v2.2.1-linux-amd64.tar.gz -o etcd-v2.2.1-linux-amd64.tar.gz
 tar xzvf etcd-v2.2.1-linux-amd64.tar.gz
 cd etcd-v2.2.1-linux-amd64
-./etcd -name {node} -initial-advertise-peer-urls http://0.0.0.0:2380 \
+./etcd -name {node} -initial-advertise-peer-urls http://{NODE_IP}:2380 \
   -listen-peer-urls http://0.0.0.0:2380 \
   -listen-client-urls http://0.0.0.0:2379,http://127.0.0.1:4001 \
   -advertise-client-urls http://0.0.0.0:2379 \
