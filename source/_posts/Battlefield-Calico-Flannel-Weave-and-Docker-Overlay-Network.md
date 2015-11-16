@@ -45,6 +45,7 @@ According the features these Big Four support, I will compare them in the follow
 * **Seperate vNIC for Container** - Whether a seperate NIC is generated for container.
 * **IP Overlap Support** - Whether the same IP can be allocated to different containers.
 * **Container Subnet Restriction** - Whether container's subnet should not be the same as host's.
+* **Protocol Support** - What kind of Layer-3 or Layer-4 protocols are supported.
 
 Now let's see more details of these aspects on Calico, Flannel, Weave and Docker Overlay Network.
 
@@ -82,6 +83,20 @@ Since containers are connected to each other, we need a method to put containers
 |                       | Calico         | Flannel           | Weave            | Docker Overlay Network |
 | --------------------- |----------------|-------------------|------------------|------------------------|
 | Application Isolation | Profile Schema | CIDR Schema       | CIDR Schema      | CIDR Schema            |
+
+
+# Protocol Support
+
+Since **Calico** is a pure Layer-3 solution, not all Layer-3 or Layer-4 protocols are supported. From the official github forum, developers of Calico declaims only **TCP**, **UDP**, **ICMP** ad **ICMPv6** are supported by Calico. It does make sense that supporting other protocols are a bit harder in such a Layer-3 solution.
+
+Other solutions support all protocols. It's easy for them to achieve so because either udp encapsulation or VxLAN can support encapsulate L2 packets over L3. So it doesn't matter what kind of protocol the packet holds.
+
+**Brief conclusion:**
+
+|                    | Calico                  | Flannel           | Weave           | Docker Overlay Network |
+| ------------------ |-------------------------|-------------------|-----------------|------------------------|
+| Protocol Support   | TCP, UDP, ICMP & ICMPv6 | ALL               | ALL             | ALL                    |
+
 
 
 # Name Service
@@ -189,6 +204,7 @@ This section focus on whether container subnet can overlap with host network.
 | Container Subnet Restriction | No             | No                | Yes, configurable after start | Yes, not configurable after start |
 
 
+
 # Conclusion
 
 So let's give a final conclusion of all the aspects into one table. This table is one of the best references for you to choose a right multi-host networking solution.
@@ -197,6 +213,7 @@ So let's give a final conclusion of all the aspects into one table. This table i
 | ------------- |-----------------------|----------------------|----------------------|------------------------|
 | Network Model | Pure Layer-3 Solution | VxLAN or UDP Channel | VxLAN or UDP Channel | VxLAN                  |
 | Application Isolation | Profile Schema | CIDR Schema       | CIDR Schema      | CIDR Schema            |
+| Protocol Support   | TCP, UDP, ICMP & ICMPv6 | ALL               | ALL             | ALL                    |
 | Name Service          | No             | No                | Yes              | No                     |
 | Distributed Storage Requirements | Yes            | Yes               | No               | Yes                    |
 | Encryption Channel      | No             | TLS               | NaCl Library     | No                     |
