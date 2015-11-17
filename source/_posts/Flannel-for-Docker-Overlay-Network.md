@@ -39,16 +39,15 @@ cd etcd-v2.2.1-linux-amd64
 ## Config Etcd
 Flannel reads its configuration from etcd. By default, it will read the configuration from `/coreos.com/network/config` (can be overridden via --etcd-prefix). You need to use `etcdctl` utility to set values in etcd. On the directory you downloaded Etcd previously, run following commands:
 
-{% codeblock lang:bash Config Etcd %}
-./etcdctl set /coreos.com/network/config 	\
-	'{"Network": "10.0.0.0/8",				\
-	"SubnetLen": 20,						\
-	"SubnetMin": "10.10.0.0",				\
-	"SubnetMax": "10.99.0.0",				\
-	"Backend": {							\
-		"Type": "udp",						\
-		"Port": 7890}} '
-{% endcodeblock %}
+
+	./etcdctl set /coreos.com/network/config 	\
+		'{"Network": "10.0.0.0/8",				\
+		"SubnetLen": 20,						\
+		"SubnetMin": "10.10.0.0",				\
+		"SubnetMax": "10.99.0.0",				\
+		"Backend": {							\
+			"Type": "udp",						\
+			"Port": 7890}} '
 
 
 # Build and Run Flannel
