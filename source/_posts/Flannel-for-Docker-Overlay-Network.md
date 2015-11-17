@@ -167,15 +167,15 @@ There are two different backends supported by Flannel. The previous configuratio
 
 It's easy to use VxLAN backend. When configuring Etcd, just define the `backend` block with `vxlan`.
 
-{% codeblock lang:bash Config Etcd %}
-./etcdctl set /coreos.com/network/config 	\
-	'{"Network": "10.0.0.0/8",				\
-	"SubnetLen": 20,						\
-	"SubnetMin": "10.10.0.0",				\
-	"SubnetMax": "10.99.0.0",				\
-	"Backend": {							\
-		"Type": "vxlan"}} '
-{% endcodeblock %}
+
+	./etcdctl set /coreos.com/network/config 	\
+		'{"Network": "10.0.0.0/8",				\
+		"SubnetLen": 20,						\
+		"SubnetMin": "10.10.0.0",				\
+		"SubnetMax": "10.99.0.0",				\
+		"Backend": {							\
+			"Type": "vxlan"}} '
+
 
 With VxLAN backend, the iperf result of two containers on different hosts are as follows:
 

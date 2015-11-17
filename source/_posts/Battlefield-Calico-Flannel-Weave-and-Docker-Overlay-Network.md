@@ -161,15 +161,17 @@ Others don't have such feature.
 
 # Seperate vNIC for Container
 
-Since **Flannel**, **Weave** and **Docker Overlay Network** create a bridged device and a veth inner containers, they create a seperate vNIC for containers. Routing table of container is also changed, thus bypass all packets of clustered network to this newly created NIC. Other connections, such as google.com, will route to the original vNIC.
+Since **Weave** and **Docker Overlay Network** create a bridged device and a veth inner containers, they create a seperate vNIC for containers. Routing table of container is also changed, thus bypass all packets of clustered network to this newly created NIC. Other connections, such as google.com, will route to the original vNIC.
 
 **Calico** can use a unified vNIC for container because it's a pure Layer-3 solution. Calico can configure NAT for out-going requests and forward subnet packages to other Calico peers. Calico can also use Docker bridged NIC for out-going requests with some manual configuration inner containers. In this way, you need to add `-cap-add=Net_Admin` parameter when execute `docker run`.
+
+**Flannel** directly use docker local bridge `docker0` to handle all the transportation, so containers with Flannel network will only see one vNIC inside.
 
 **Brief conclusion:**
 
 |                             | Calico         | Flannel           | Weave           | Docker Overlay Network |
 | --------------------------- |----------------|-------------------|-----------------|------------------------|
-| Seperate vNIC for Container | No             | Yes               | Yes             | yes                    |
+| Seperate vNIC for Container | No             | No               | Yes             | yes                    |
 
 
 # IP Overlap Support
@@ -218,7 +220,7 @@ So let's give a final conclusion of all the aspects into one table. This table i
 | Distributed Storage Requirements | Yes            | Yes               | No               | Yes                    |
 | Encryption Channel      | No             | TLS               | NaCl Library     | No                     |
 | Partially Connected Network Support | No             | No                | Yes             | No                     |
-| Seperate vNIC for Container | No             | Yes               | Yes             | yes                    |
+| Seperate vNIC for Container | No             | No                | Yes             | yes                    |
 | IP Overlap Support | No             | Maybe             | Maybe           | Maybe                  |
 | Container Subnet Restriction | No             | No                | Yes, configurable after start | Yes, not configurable after start |
 
